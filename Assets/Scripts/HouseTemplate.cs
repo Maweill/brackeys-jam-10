@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class HouseTemplate : MonoBehaviour
+ class HouseTemplate : MonoBehaviour
 {
-    [SerializeField] private Transform _house; 
+    [SerializeField]
+    private Transform _house; 
 
-    void Update()
+    private void Update()
     {
         if (_house == null) return;
         float distance = Vector2.Distance(transform.position, _house.position);
