@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HouseTemplate : MonoBehaviour
+class HouseTemplate : MonoBehaviour
 {
-    [SerializeField] public Transform square2; 
+    [SerializeField] private Transform _house; 
 
     void Update()
     {
-        if (square2 == null) return;
-        float distance = Vector2.Distance(transform.position, square2.position);
-        float maxSize = Mathf.Max(transform.localScale.x, square2.localScale.x);
+        if (_house == null) return;
+        float distance = Vector2.Distance(transform.position, _house.position);
+        float maxSize = Mathf.Max(transform.localScale.x, _house.localScale.x);
         float distancePercentage = Mathf.Clamp01(1 - (distance / maxSize));
 
         // Преобразование расстояния в проценты
