@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class HouseTemplate : MonoBehaviour
+public class HouseTemplate : MonoBehaviour
 {
     [SerializeField]
     private Transform _house; 
