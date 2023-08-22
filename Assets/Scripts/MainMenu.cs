@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-class MainMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
-    private void ExitGame()
-    {
-        Application.Quit();
-        Debug.Log("Игра закрылась");
-    }
+	[SerializeField] private Button _newGameButton;
+
+	private void Awake()
+	{
+		_newGameButton.onClick.AddListener(OnNewGameButtonClicked);
+	}
+
+	private void OnNewGameButtonClicked()
+	{
+		gameObject.SetActive(false);
+		GameEvents.InvokeGameStarted();
+	}
 }
