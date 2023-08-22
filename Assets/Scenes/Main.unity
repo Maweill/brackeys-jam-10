@@ -277,8 +277,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4275999854171544024, guid: 8c02aa390f0832595802b15379ef2f28, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 15.528202
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275999854171544024, guid: 8c02aa390f0832595802b15379ef2f28, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.04
+      value: -0.0908
       objectReference: {fileID: 0}
     - target: {fileID: 4275999854171544024, guid: 8c02aa390f0832595802b15379ef2f28, type: 3}
       propertyPath: m_LocalPosition.y
@@ -476,7 +480,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.89411765, g: 0.47843137, b: 0.5058824, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -768,8 +772,8 @@ Transform:
   m_GameObject: {fileID: 1543434479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10, z: 1}
-  m_LocalScale: {x: 18, y: 10, z: 1}
+  m_LocalPosition: {x: -0.0555, y: -10, z: 1}
+  m_LocalScale: {x: 15.369135, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1069,8 +1073,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.2470588, g: 0.80185235, b: 0.8862745, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1acc18dbe1ccd81419d206777192416a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1089,9 +1093,9 @@ Transform:
   m_GameObject: {fileID: 1653849243}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 18, y: 10, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.76, y: 0.76, z: 0.76}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
