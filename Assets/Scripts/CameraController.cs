@@ -21,13 +21,15 @@ public class CameraController : MonoBehaviour
     
     public void MoveCameraDown()
     {
-        if (_isMoving) return;
+        if (_isMoving)
+            Debug.LogWarning("CameraController: Попытка свдинуть камеру когда она ещё двигается, _isMoving = true");
         
         _isMoving = true;
         
         _currentPosition = transform.position;
-        transform.DOMove(new Vector3(_currentPosition.x, _currentPosition.y - _cameraShiftY, _currentPosition.z),
-                _shiftDuration, false)
+        Vector3 shiftPosition = new Vector3(_currentPosition.x, _currentPosition.y - _cameraShiftY, _currentPosition.z);
+        
+        transform.DOMove(shiftPosition, _shiftDuration, false)
             .OnComplete(() =>
             {
                 _isMoving = false;

@@ -9,10 +9,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-
         _cameraController = FindObjectOfType<CameraController>();
 
-        if (_cameraController == null) return;
+        if (_cameraController == null) 
+            Debug.LogWarning("LevelManager: CameraController не найден, _cameraController = null");
+        
         _cameraController.OnCameraMovedDown += HandleCameraMovedDown;
     }
     
