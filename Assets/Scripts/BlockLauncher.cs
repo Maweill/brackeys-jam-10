@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BlockLauncher : MonoBehaviour
 {
+	private const float GRAVITY = 9.81f;
+	
 	[SerializeField] private float _maxAngle;
 	[SerializeField] private float _ropeLength;
 
@@ -46,7 +48,7 @@ public class BlockLauncher : MonoBehaviour
 	
 	private void MoveBlock()
 	{
-		float angle = _maxAngle * Mathf.Sin(Mathf.Sqrt(9.81f / _ropeLength) * Time.time);
+		float angle = _maxAngle * Mathf.Sin(Mathf.Sqrt(GRAVITY / _ropeLength) * Time.time);
 		float xMovement = _blockRelativeStartPosition.x + _ropeLength * Mathf.Sin(angle * Mathf.Deg2Rad);
 
 		_blockPosition =
