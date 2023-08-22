@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BlockLauncher : MonoBehaviour
 {
+	private const float GRAVITY = 9.81f;
+	
 	[SerializeField] private float _maxAngle;
 	[SerializeField] private float _ropeLength;
 
@@ -10,15 +12,13 @@ public class BlockLauncher : MonoBehaviour
 
 	private BlockFactory _blockFactory;
 
-	private Rigidbody2D _currentBlock;
+	private Block _currentBlock;
 	private Vector3 _blockPosition;
 	private Vector3 _blockRelativeStartPosition;
-	private Vector3 _previousBlockPosition;
 
 	private LineRenderer _mainRope;
 	private LineRenderer _sideRope1;
 	private LineRenderer _sideRope2;
-
 
 	private void Awake()
 	{
@@ -38,10 +38,6 @@ public class BlockLauncher : MonoBehaviour
 
 	private void Update()
 	{
-		if (_currentBlock) {
-			_previousBlockPosition = _currentBlock.transform.position;
-		}
-
 		MoveBlock();
 		UpdateRope();
 
@@ -49,10 +45,10 @@ public class BlockLauncher : MonoBehaviour
 			StartCoroutine(DropBlock());
 		}
 	}
-
+	
 	private void MoveBlock()
 	{
-		float angle = _maxAngle * Mathf.Sin(Mathf.Sqrt(9.81f / _ropeLength) * Time.time);
+		float angle = _maxAngle * Mathf.Sin(Mathf.Sqrt(GRAVITY / _ropeLength) * Time.time);
 		float xMovement = _blockRelativeStartPosition.x + _ropeLength * Mathf.Sin(angle * Mathf.Deg2Rad);
 
 		_blockPosition =
@@ -63,8 +59,7 @@ public class BlockLauncher : MonoBehaviour
 		if (_currentBlock == null) {
 			return;
 		}
-
-		_currentBlock.transform.position = _blockPosition;
+		_currentBlock.Move(_blockPosition);
 	}
 
 	private void UpdateRope()
@@ -82,13 +77,7 @@ public class BlockLauncher : MonoBehaviour
 
 	private IEnumerator DropBlock()
 	{
-		_currentBlock.isKinematic = false;
-
-		Vector3 positionDifference = _currentBlock.transform.position - _previousBlockPosition;
-		float deltaTime = Time.deltaTime;
-
-		_currentBlock.velocity = new Vector2(positionDifference.x / deltaTime, positionDifference.y / deltaTime);
-
+		_currentBlock.Drop();
 		_currentBlock = null;
 		yield return new WaitForSeconds(1f);
 		_currentBlock = _blockFactory.CreateBlock(_blockPosition);

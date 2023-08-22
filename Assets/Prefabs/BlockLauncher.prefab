@@ -457,8 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d835e3f8d1480e4fbf60ac1cb2e814a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amplitudeX: 2
-  _frequency: 1.5
+  _maxAngle: 70
   _ropeLength: 5
 --- !u!114 &1067945786584192941
 MonoBehaviour:
@@ -472,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fb2a6b9405644ca9189d32e36792588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockPrefab: {fileID: 6819233989897591032, guid: fb3363bbc4bf961af8b2e8d715d7994c, type: 3}
+  _blockPrefab: {fileID: 7893384948504381338, guid: fb3363bbc4bf961af8b2e8d715d7994c, type: 3}
 --- !u!212 &4696943162742026537
 SpriteRenderer:
   m_ObjectHideFlags: 0

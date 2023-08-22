@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class BlockFactory : MonoBehaviour
 {
-	[SerializeField] private Rigidbody2D _blockPrefab;
+	[SerializeField] private Block _blockPrefab;
 
-	public Rigidbody2D CreateBlock(Vector3 startPosition)
+	public Block CreateBlock(Vector3 startPosition)
 	{
-		Rigidbody2D block = Instantiate(_blockPrefab, startPosition, Quaternion.identity);
-		block.isKinematic = true;
+		Block block = Instantiate(_blockPrefab, startPosition, Quaternion.identity);
+		block.Rigidbody.isKinematic = true;
 		return block;
 	}
 }
