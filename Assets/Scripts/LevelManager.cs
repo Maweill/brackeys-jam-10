@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
 		_filledHouses = allHouses.Count(house => house.IsHouseFilled);
 		
 		Debug.Log("LevelManager: Количество установленных домов:" + _filledHouses);
-
+		
 		if (_cameraController == null) {
 			return;
 		}
