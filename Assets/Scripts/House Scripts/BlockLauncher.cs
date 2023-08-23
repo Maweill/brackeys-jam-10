@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class BlockLauncher : MonoBehaviour
 {
 	private const float GRAVITY = 9.81f;
+	
+	public static event Action<Transform> BlockDropped;
 	
 	[SerializeField] private float _maxAngle;
 	[SerializeField] private float _ropeLength;
@@ -79,7 +82,25 @@ public class BlockLauncher : MonoBehaviour
 	{
 		_currentBlock.Drop();
 		_currentBlock = null;
+
+		BlockDropped?.Invoke(_currentBlock.transform);
+
 		yield return new WaitForSeconds(1f);
 		_currentBlock = _blockFactory.CreateBlock(_blockPosition);
+	}
+
+	private void OnEnable()
+	{
+		GameEvents.LevelCompleted += Die;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.LevelCompleted -= Die;
+	}
+
+	private void Die()
+	{
+		Destroy(gameObject);
 	}
 }
