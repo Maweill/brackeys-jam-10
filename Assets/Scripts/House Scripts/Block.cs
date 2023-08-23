@@ -10,6 +10,8 @@ public class Block : MonoBehaviour
 	private bool _isDisconnectedFromRope;
 	private bool _isMassive;
 
+	public int ID { get; set; }
+
 	private void Awake()
 	{
 		Rigidbody = GetComponent<Rigidbody2D>();
@@ -29,12 +31,17 @@ public class Block : MonoBehaviour
 		StartCoroutine(MakeMassive());
 	}
 
+	public void Initialize(int index)
+	{
+		ID = index;
+	}
+
 	public void Move(Vector3 position)
 	{
 		transform.position = position;
 	}
 
-	public void Drop()
+	public void  Drop()
 	{
 		Rigidbody.isKinematic = false;
 		
@@ -49,5 +56,6 @@ public class Block : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.5f);
 		Rigidbody.mass = 100000f;
+		GameEvents.InvokeBlockPlaced(this);
 	}
 }

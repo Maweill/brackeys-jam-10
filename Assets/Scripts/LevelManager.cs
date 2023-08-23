@@ -1,11 +1,15 @@
+using System.Linq;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
 	private CameraController _cameraController;
 
+	private int _filledHouses;
+
 	private void Start()
 	{
+		GameEvents.LevelCompleted += OnLevelCompleted;
 		_cameraController = FindObjectOfType<CameraController>();
 
 		if (_cameraController == null) {
@@ -16,9 +20,13 @@ public class LevelManager : MonoBehaviour
 		GameEvents.GameStarted += OnGameStarted;
 	}
 
-	public void OnLevelCompleted()
+	private void OnLevelCompleted()
 	{
-		GameEvents.InvokeLevelCompleted();
+		HouseTemplate[] allHouses = FindObjectsOfType<HouseTemplate>();
+
+		_filledHouses = allHouses.Count(house => house.IsHouseFilled);
+		
+		Debug.Log("LevelManager: Количество установленных домов:" + _filledHouses);
 		
 		if (_cameraController == null) {
 			return;

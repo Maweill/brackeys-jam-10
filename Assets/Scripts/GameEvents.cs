@@ -8,8 +8,9 @@ public static class GameEvents
 	public static event Action LevelFailed;
 
 	public static event Action BlockDropped; // блок отпущен
-	public static event Action BlockPlaced; // блок приземлился
+	public static event Action<Block> BlockPlaced; // блок приземлился
 	public static event Action BlocksEnded; // блоки закончились
+	public static event Action<int> BlockTemplateFilled;
 	
 	public static void InvokeGameStarted()
 	{
@@ -36,13 +37,18 @@ public static class GameEvents
 		BlockDropped?.Invoke();
 	}
 	
-	public static void InvokeBlockPlaced()
+	public static void InvokeBlockPlaced(Block block)
 	{
-		BlockPlaced?.Invoke();
+		BlockPlaced?.Invoke(block);
 	}
 	
 	public static void InvokeBlocksEnded()
 	{
 		BlocksEnded?.Invoke();
+	}
+
+	public static void InvokeBlockTemplateFilled(int id)
+	{
+		BlockTemplateFilled?.Invoke(id);
 	}
 }
