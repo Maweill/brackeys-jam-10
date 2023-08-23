@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -31,6 +32,16 @@ public class BlockLauncher : MonoBehaviour
 		_blockRelativeStartPosition = transform.position - new Vector3(0f, _ropeLength, 0f);
 	}
 
+	private void OnEnable()
+	{
+		GameEvents.LevelCompleted += Die;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.LevelCompleted -= Die;
+	}
+
 	private void Start()
 	{
 		_currentBlock = _blockFactory.CreateBlock(_blockRelativeStartPosition);
@@ -45,7 +56,7 @@ public class BlockLauncher : MonoBehaviour
 			StartCoroutine(DropBlock());
 		}
 	}
-	
+
 	private void MoveBlock()
 	{
 		float angle = _maxAngle * Mathf.Sin(Mathf.Sqrt(GRAVITY / _ropeLength) * Time.time);
@@ -81,5 +92,10 @@ public class BlockLauncher : MonoBehaviour
 		_currentBlock = null;
 		yield return new WaitForSeconds(1f);
 		_currentBlock = _blockFactory.CreateBlock(_blockPosition);
+	}
+
+	private void Die()
+	{
+		Destroy(gameObject);
 	}
 }
