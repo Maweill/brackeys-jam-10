@@ -18,6 +18,8 @@ public class LevelManager : MonoBehaviour
 
 	public void OnLevelCompleted()
 	{
+		GameEvents.InvokeLevelCompleted();
+		
 		if (_cameraController == null) {
 			return;
 		}
