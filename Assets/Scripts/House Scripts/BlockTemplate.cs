@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using House_Scripts;
 using UnityEngine;
 
 public class BlockTemplate : MonoBehaviour

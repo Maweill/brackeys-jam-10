@@ -1,14 +1,15 @@
+using House_Scripts;
+using ScriptableObjects;
 using UnityEngine;
 
 public class BlockFactory : MonoBehaviour
 {
 	[SerializeField] private Blocks _blocksData;
-	private int _currentIndex = 0;
+	private int _currentIndex;
 
 	public Block CreateBlock(Vector3 startPosition)
 	{
-		if (_currentIndex >= _blocksData._blockPrefabs.Length)
-		{
+		if (_currentIndex >= _blocksData._blockPrefabs.Length) {
 			// Если список блоков закончился, не создавайте новые блоки
 			GameEvents.InvokeLevelCompleted();
 			return null;
