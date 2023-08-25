@@ -52,6 +52,7 @@ namespace House_Scripts
 			Rigidbody.velocity = new Vector2(positionDifference.x / deltaTime, positionDifference.y / deltaTime);
 		
 			_isDisconnectedFromRope = true;
+			GameEvents.InvokeBlockDropped(this);
 		}
 
 		private IEnumerator MakeMassive()

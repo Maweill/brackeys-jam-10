@@ -49,13 +49,11 @@ namespace House_Scripts
 
 		private void OnEnable()
 		{
-			GameEvents.LevelCompleted += Die;
 			GameEvents.BlockPlaced += OnBlockPlaced;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.LevelCompleted -= Die;
 			GameEvents.BlockPlaced -= OnBlockPlaced;
 		}
 
@@ -93,11 +91,6 @@ namespace House_Scripts
 		{
 			_currentBlock.Drop();
 			_currentBlock = null;
-		}
-
-		private void Die()
-		{
-			Destroy(gameObject);
 		}
 
 		private void OnBlockPlaced(Block placedBlock)

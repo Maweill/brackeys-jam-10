@@ -11,23 +11,22 @@ public class CameraController : MonoBehaviour
 
     private bool _isMoving;
     
-    public event Action OnCameraMovedDown;
-    
-    public void MoveCameraDown()
+    public void MoveCameraDown(Action callback = null)
     {
-        if (_isMoving)
-            Debug.LogWarning("CameraController: Попытка свдинуть камеру когда она ещё двигается, _isMoving = true");
-        
+        if (_isMoving) {
+            Debug.LogWarning("CameraController: Попытка свдинуть камеру когда она ещё двигается");
+            return;
+        }
         _isMoving = true;
         
         _currentPosition = transform.position;
-        Vector3 shiftPosition = new Vector3(_currentPosition.x, _currentPosition.y - GlobalConstants.LEVEL_SHIFT, _currentPosition.z);
+        Vector3 shiftPosition = new(_currentPosition.x, _currentPosition.y - GlobalConstants.LEVEL_SHIFT, _currentPosition.z);
         
-        transform.DOMove(shiftPosition, _shiftDuration, false)
+        transform.DOMove(shiftPosition, _shiftDuration)
             .OnComplete(() =>
             {
                 _isMoving = false;
-                OnCameraMovedDown?.Invoke();
+                callback?.Invoke();
             });
     }
 }
