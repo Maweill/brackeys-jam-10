@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
 			GameEvents.InvokeGameCompleted();
 			return;
 		}
-		_levels[_currentLevelIndex - 1].EndLevel();
+		if (_currentLevelIndex > 0) {
+			_levels[_currentLevelIndex - 1].EndLevel();
+		}
 		_cameraController.MoveCameraDown();
 		_levels[_currentLevelIndex].StartLevel();
 	}
