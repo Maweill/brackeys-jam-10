@@ -1,26 +1,28 @@
+using ScriptableObjects;
 using UnityEngine;
 
-public class BlockFactory : MonoBehaviour
+namespace House_Scripts
 {
-	[SerializeField] private Blocks _blocksData;
-	private int _currentIndex = 0;
-
-	public Block CreateBlock(Vector3 startPosition)
+	public class BlockFactory : MonoBehaviour
 	{
-		if (_currentIndex >= _blocksData._blockPrefabs.Length)
+		[SerializeField] private Blocks _blocksData;
+		private int _currentIndex;
+
+		public Block CreateBlock(Vector3 startPosition)
 		{
-			// Если список блоков закончился, не создавайте новые блоки
-			GameEvents.InvokeLevelCompleted();
-			return null;
+			if (_currentIndex >= _blocksData._blockPrefabs.Length) {
+				GameEvents.InvokeBlocksEnded();
+				return null;
+			}
+
+			GameObject blockPrefab = _blocksData._blockPrefabs[_currentIndex];
+
+			Block block = Instantiate(blockPrefab, startPosition, Quaternion.identity).GetComponent<Block>();
+			block.Rigidbody.isKinematic = true;
+			block.Initialize(_currentIndex);
+			_currentIndex++;
+
+			return block;
 		}
-
-		GameObject blockPrefab = _blocksData._blockPrefabs[_currentIndex];
-
-		Block block = Instantiate(blockPrefab, startPosition, Quaternion.identity).GetComponent<Block>();
-		block.Rigidbody.isKinematic = true;
-		block.Initialize(_currentIndex);
-		_currentIndex++;
-
-		return block;
 	}
 }

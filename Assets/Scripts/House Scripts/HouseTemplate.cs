@@ -1,27 +1,33 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class HouseTemplate : MonoBehaviour
+namespace House_Scripts
 {
-    private List<BlockTemplate> _houseBlockTemplates;
-
-    public bool IsHouseFilled { get; private set; }
-
-    private void Awake()
+    public class HouseTemplate : MonoBehaviour
     {
-        _houseBlockTemplates = GetComponentsInChildren<BlockTemplate>().ToList();
-    }
+        private List<BlockTemplate> _houseBlockTemplates;
 
-    private void Start()
-    {
-        GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
-    }
+        public bool IsHouseFilled { get; private set; }
+
+        private void Awake()
+        {
+            _houseBlockTemplates = GetComponentsInChildren<BlockTemplate>().ToList();
+        }
+
+        private void OnEnable()
+        {
+            GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
+        }
+        
+        private void OnDisable()
+        {
+            GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
+        }
     
-    private void OnBlockTemplateFilled(int _)
-    {
-        IsHouseFilled = _houseBlockTemplates.All(template => template.IsPlaced);
+        private void OnBlockTemplateFilled(int _)
+        {
+            IsHouseFilled = _houseBlockTemplates.All(template => template.IsPlaced);
+        }
     }
 }

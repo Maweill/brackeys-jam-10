@@ -12,7 +12,6 @@ public class MainMenu : MonoBehaviour
 
 	private void OnNewGameButtonClicked()
 	{
-		gameObject.SetActive(false);
 		GameEvents.InvokeGameStarted();
 	}
 }

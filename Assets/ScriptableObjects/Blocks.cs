@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Blocks", menuName = "ScriptableObjects/Blocks")]
-public class Blocks : ScriptableObject
+namespace ScriptableObjects
 {
-    public GameObject[] _blockPrefabs; // Массив с префабами блоков
+	[CreateAssetMenu(fileName = "Blocks", menuName = "ScriptableObjects/Blocks")]
+	public class Blocks : ScriptableObject
+	{
+		public GameObject[] _blockPrefabs;
+	}
 }
