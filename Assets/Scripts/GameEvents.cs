@@ -13,7 +13,7 @@ public static class GameEvents
 	public static event Action<Block> BlockPlaced; // блок приземлился
 	public static event Action BlocksEnded; // блоки закончились
 	public static event Action<int> BlockTemplateFilled;
-	
+
 	public static void InvokeGameStarted()
 	{
 		GameStarted?.Invoke();

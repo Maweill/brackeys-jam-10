@@ -4,8 +4,14 @@ namespace House_Scripts
 {
 	public class BlockLauncher : MonoBehaviour
 	{
-		[SerializeField] private float _maxAngle;
-		[SerializeField] private float _ropeLength;
+
+		[SerializeField] 
+		private float _maxAngle;
+		[SerializeField]
+		private float _ropeLength;
+		[SerializeField]
+		private AudioSource BlockDropSound;
+
 
 		private readonly Vector3 _ropeSplitPoint = new(0, 1, 0);
 
@@ -19,6 +25,8 @@ namespace House_Scripts
 		private LineRenderer _sideRope1;
 		private LineRenderer _sideRope2;
 
+		
+		
 		private void Awake()
 		{
 			_blockFactory = GetComponent<BlockFactory>();
@@ -93,6 +101,7 @@ namespace House_Scripts
 
 		private void OnBlockPlaced(Block placedBlock)
 		{
+			BlockDropSound.Play();
 			_currentBlock = _blockFactory.CreateBlock(_blockPosition);
 		}
 	}

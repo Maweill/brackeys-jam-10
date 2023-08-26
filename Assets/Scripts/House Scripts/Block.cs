@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace House_Scripts
 {
 	public class Block : MonoBehaviour
 	{
+		[SerializeField]
+		private AudioSource _blockHitSound;
+		
 		public Rigidbody2D Rigidbody { get; private set; }
 
 		private Vector3 _blockLastPosition;
@@ -60,6 +66,12 @@ namespace House_Scripts
 			yield return new WaitForSeconds(0.5f);
 			Rigidbody.mass = 100000f;
 			GameEvents.InvokeBlockPlaced(this);
+		}
+
+		private void OnCollisionEnter2D(Collision2D col)
+		{
+			_blockHitSound.pitch = Random.Range(0.8f, 1.8f);
+			_blockHitSound.Play();
 		}
 	}
 }
