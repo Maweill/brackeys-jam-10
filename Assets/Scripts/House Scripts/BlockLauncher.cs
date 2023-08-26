@@ -79,10 +79,10 @@ namespace House_Scripts
 			_mainRope.SetPosition(1, mainRopeEnd);
 
 			_sideRope1.SetPosition(0, mainRopeEnd);
-			_sideRope1.SetPosition(1, _blockPosition + new Vector3(-0.5f, 0, 0));
+			_sideRope1.SetPosition(1, _blockPosition + new Vector3(-0.4f, 0, 0));
 
 			_sideRope2.SetPosition(0, mainRopeEnd);
-			_sideRope2.SetPosition(1, _blockPosition + new Vector3(0.5f, 0, 0));
+			_sideRope2.SetPosition(1, _blockPosition + new Vector3(0.4f, 0, 0));
 		}
 
 		private void DropBlock()
