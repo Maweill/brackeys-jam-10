@@ -5,18 +5,22 @@ namespace House_Scripts
 {
 	public class Block : MonoBehaviour
 	{
-		public Rigidbody2D Rigidbody { get; private set; }
+		[SerializeField]
+		private Sprite _lightenSprite;
 
 		private Vector3 _blockLastPosition;
 
+		private SpriteRenderer _spriteRenderer;
 		private bool _isDisconnectedFromRope;
 		private bool _isMassive;
 
 		public int ID { get; set; }
-
+		public Rigidbody2D Rigidbody { get; private set; }
+		
 		private void Awake()
 		{
 			Rigidbody = GetComponent<Rigidbody2D>();
+			_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
 
 		private void Update()
@@ -55,6 +59,15 @@ namespace House_Scripts
 			GameEvents.InvokeBlockDropped(this);
 		}
 
+		public void Lighten()
+		{
+			if (_lightenSprite == null) {
+				return;
+			}
+			_spriteRenderer.sprite = _lightenSprite;
+			Debug.Log("Block: Подсветить блок");
+		}
+		
 		private IEnumerator MakeMassive()
 		{
 			yield return new WaitForSeconds(0.5f);

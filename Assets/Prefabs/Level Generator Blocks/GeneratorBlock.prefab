@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3897327389962622159}
   - component: {fileID: 7893384948504381338}
   m_Layer: 0
-  m_Name: Block
+  m_Name: GeneratorBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -175184221
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 759d02f7e7b8fc5a0a7ae2833297e7a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15c1c1aa0ec3e8bd1b639ff72c201bf6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,18 +146,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.012542248, y: 0.011654675}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.0008334}
+    oldSize: {x: 4.25, y: 3.05}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.3280935, y: 3.112699}
   m_EdgeRadius: 0
 --- !u!114 &7893384948504381338
 MonoBehaviour:
@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c2aeca70124e358775fd04fc6b91b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lightenSprite: {fileID: 21300000, guid: 97b6183d8d62398ceb3ddaf0cb218169, type: 3}
+  _lightenSprite: {fileID: 0}

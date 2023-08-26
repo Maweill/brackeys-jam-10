@@ -3,15 +3,12 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-	[SerializeField] private Button _newGameButton;
+	[SerializeField] private GameObject _newGameButton;
+	[SerializeField] private GameObject _optionsButton;
 
-	private void Awake()
+	public void HideButtons()
 	{
-		_newGameButton.onClick.AddListener(OnNewGameButtonClicked);
-	}
-
-	private void OnNewGameButtonClicked()
-	{
-		GameEvents.InvokeGameStarted();
+		_newGameButton.gameObject.SetActive(false);
+		_optionsButton.gameObject.SetActive(false);
 	}
 }

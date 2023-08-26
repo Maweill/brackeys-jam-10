@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] 
-    private float _shiftDuration;
-
     private Vector3 _currentPosition;
 
     private bool _isMoving;
     
-    public void MoveCameraDown(Action callback = null)
+    public void MoveCamera(float y, Action callback = null)
     {
         if (_isMoving) {
             Debug.LogWarning("CameraController: Попытка свдинуть камеру когда она ещё двигается");
@@ -20,13 +17,14 @@ public class CameraController : MonoBehaviour
         _isMoving = true;
         
         _currentPosition = transform.position;
-        Vector3 shiftPosition = new(_currentPosition.x, _currentPosition.y - GlobalConstants.LEVEL_SHIFT, _currentPosition.z);
+        Vector3 shiftPosition = new(_currentPosition.x, y, _currentPosition.z);
         
-        transform.DOMove(shiftPosition, _shiftDuration)
+        transform.DOMove(shiftPosition,GlobalConstants.CAMERA_SHIFT_DURATION)
             .OnComplete(() =>
             {
                 _isMoving = false;
                 callback?.Invoke();
+                GameEvents.InvokeCameraMoved();
             });
     }
 }

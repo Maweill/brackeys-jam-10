@@ -18,6 +18,8 @@ namespace House_Scripts
 		private LineRenderer _mainRope;
 		private LineRenderer _sideRope1;
 		private LineRenderer _sideRope2;
+		
+		private bool _canDropBlocks;
 
 		private void Awake()
 		{
@@ -40,19 +42,21 @@ namespace House_Scripts
 			MoveBlock();
 			UpdateRope();
 
-			if (Input.GetKeyDown(KeyCode.Space) && _currentBlock != null) {
+			if (Input.GetKeyDown(KeyCode.Space) && _currentBlock != null && _canDropBlocks) {
 				DropBlock();
 			}
 		}
 
 		private void OnEnable()
 		{
-			GameEvents.BlockPlaced += OnBlockPlaced;
+			GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
+			GameEvents.CameraMoved += OnCameraMoved;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.BlockPlaced -= OnBlockPlaced;
+			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
+			GameEvents.CameraMoved -= OnCameraMoved;
 		}
 
 		private void MoveBlock()
@@ -91,9 +95,14 @@ namespace House_Scripts
 			_currentBlock = null;
 		}
 
-		private void OnBlockPlaced(Block placedBlock)
+		private void OnBlockTemplateFilled(int _)
 		{
 			_currentBlock = _blockFactory.CreateBlock(_blockPosition);
+		}
+
+		private void OnCameraMoved()
+		{
+			_canDropBlocks = true;
 		}
 	}
 }

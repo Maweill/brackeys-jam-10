@@ -21,7 +21,7 @@ namespace House_Scripts
 			block.Rigidbody.isKinematic = true;
 			block.Initialize(_currentIndex);
 			_currentIndex++;
-
+			GameEvents.InvokeBlockSpawned(block);
 			return block;
 		}
 	}
