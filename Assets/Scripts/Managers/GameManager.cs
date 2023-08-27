@@ -77,7 +77,10 @@ namespace Managers
 			_cameraController.MoveCamera(MAIN_MENU_CAMERA_Y);
 			yield return new WaitForSeconds(GlobalConstants.CAMERA_SHIFT_DURATION);
 			
-			float houseFillPercentage = (float) filledHousesTotal / housesTotal;
+			float houseFillPercentage = (float) filledHousesTotal / housesTotal * 100f;
+			Debug.Log("GameManager: Количество заполненных домов: " + filledHousesTotal);
+			Debug.Log("GameManager: Количество всех домов: " + housesTotal);
+			Debug.Log("GameManager: Процент заполненных домов: " + houseFillPercentage.ToString("F2") + "%");
 			if ( houseFillPercentage >= GlobalConstants.MIN_FILLED_HOUSES_PERCENTAGE) {
 				//TODO Зажечь свет города
 				Debug.Log("GameManager: Зажечь свет города");

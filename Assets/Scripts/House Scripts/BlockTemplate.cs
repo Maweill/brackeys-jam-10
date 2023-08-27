@@ -6,6 +6,7 @@ namespace House_Scripts
 	public class BlockTemplate : MonoBehaviour
 	{
 		[SerializeField] private int _blockTemplateId;
+		[SerializeField] private Sprite _selectedSprite;
 		
 		private Block _block;
 		private SpriteRenderer _spriteRenderer;
@@ -15,7 +16,7 @@ namespace House_Scripts
 		private void Awake()
 		{
 			_spriteRenderer = GetComponent<SpriteRenderer>();
-			_spriteRenderer.enabled = false;
+			/*_spriteRenderer.enabled = false;*/
 		}
 
 		private void OnEnable()
@@ -69,6 +70,7 @@ namespace House_Scripts
 			Color color = _spriteRenderer.color;
 			color.a = 0.8f;
 			_spriteRenderer.color = color;
+			_spriteRenderer.sprite = _selectedSprite;
 			_spriteRenderer.enabled = true;
 		}
 		
