@@ -10,6 +10,7 @@ namespace Managers
 	public class GameManager : MonoBehaviour
 	{
 		private const float MAIN_MENU_CAMERA_Y = 0f;
+		private const float TUTORIAL_CAMERA_Y = -10.5f;
 		
 		[SerializeField]
 		private MainMenu _mainMenu;
@@ -49,7 +50,7 @@ namespace Managers
 
 		private void OnGameStarted()
 		{
-			StartNextLevel();
+			StartCoroutine(StartGame());
 		}
 
 		private void OnLevelCompleted()
@@ -57,6 +58,13 @@ namespace Managers
 			HouseTemplate[] allHouses = FindObjectsOfType<HouseTemplate>();
 			_filledHouses = allHouses.Count(house => house.IsHouseFilled);
 			Debug.Log("LevelManager: Количество установленных домов:" + _filledHouses);
+			StartNextLevel();
+		}
+
+		private IEnumerator StartGame()
+		{
+			_cameraController.MoveCamera(TUTORIAL_CAMERA_Y);
+			yield return new WaitForSeconds(10f);
 			StartNextLevel();
 		}
 	
