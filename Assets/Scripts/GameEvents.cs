@@ -9,10 +9,13 @@ public static class GameEvents
 	public static event Action LevelFailed;
 	public static event Action GameCompleted;
 
+	public static event Action<Block> BlockSpawned; // блок появился
 	public static event Action<Block> BlockDropped; // блок отпущен
 	public static event Action<Block> BlockPlaced; // блок приземлился
 	public static event Action BlocksEnded; // блоки закончились
 	public static event Action<int> BlockTemplateFilled;
+	
+	public static event Action CameraMoved;
 	
 	public static void InvokeGameStarted()
 	{
@@ -39,6 +42,11 @@ public static class GameEvents
 		LevelFailed?.Invoke();
 	}
 	
+	public static void InvokeBlockSpawned(Block block)
+	{
+		BlockSpawned?.Invoke(block);
+	}
+	
 	public static void InvokeBlockDropped(Block block)
 	{
 		BlockDropped?.Invoke(block);
@@ -57,5 +65,10 @@ public static class GameEvents
 	public static void InvokeBlockTemplateFilled(int id)
 	{
 		BlockTemplateFilled?.Invoke(id);
+	}
+	
+	public static void InvokeCameraMoved()
+	{
+		CameraMoved?.Invoke();
 	}
 }

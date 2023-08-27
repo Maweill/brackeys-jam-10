@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,13 +7,13 @@ namespace House_Scripts
 {
     public class HouseTemplate : MonoBehaviour
     {
-        private List<BlockTemplate> _houseBlockTemplates;
+        private List<BlockTemplate> _blockTemplates;
 
         public bool IsHouseFilled { get; private set; }
 
         private void Awake()
         {
-            _houseBlockTemplates = GetComponentsInChildren<BlockTemplate>().ToList();
+            _blockTemplates = GetComponentsInChildren<BlockTemplate>().ToList();
         }
 
         private void OnEnable()
@@ -25,9 +26,17 @@ namespace House_Scripts
             GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
         }
     
+        public IEnumerator Lighten()
+        {
+            foreach (BlockTemplate blockTemplate in _blockTemplates) {
+                blockTemplate.LightenBlock();
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+        
         private void OnBlockTemplateFilled(int _)
         {
-            IsHouseFilled = _houseBlockTemplates.All(template => template.IsPlaced);
+            IsHouseFilled = _blockTemplates.All(template => template.IsFilled);
         }
     }
 }

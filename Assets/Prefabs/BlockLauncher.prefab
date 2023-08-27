@@ -458,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxAngle: 70
   _ropeLength: 5
+  _swingSpeed: 0.65
 --- !u!114 &1067945786584192941
 MonoBehaviour:
   m_ObjectHideFlags: 0
