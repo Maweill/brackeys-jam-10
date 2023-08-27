@@ -7,16 +7,19 @@ namespace House_Scripts
 	{
 		[SerializeField] private int _blockTemplateId;
 		[SerializeField] private Sprite _selectedSprite;
+		[SerializeField] private AudioClip _fillSound;
+		[SerializeField] private AudioClip _missSound;
 		
 		private Block _block;
 		private SpriteRenderer _spriteRenderer;
+		private AudioSource _audioSource;
 
 		public bool IsFilled { get; private set; }
 		
 		private void Awake()
 		{
 			_spriteRenderer = GetComponent<SpriteRenderer>();
-			/*_spriteRenderer.enabled = false;*/
+			_audioSource = GetComponent<AudioSource>();
 		}
 
 		private void OnEnable()
@@ -61,6 +64,7 @@ namespace House_Scripts
 				IsFilled = true;
 			}
 
+			PlaySound(IsFilled);
 			Debug.Log("BlockTemplate: Расстояние в процентах: " + percentage.ToString("F2") + "%");
 			StartCoroutine(ShowFillResult(IsFilled));
 		}
@@ -86,6 +90,12 @@ namespace House_Scripts
 			
 			gameObject.SetActive(false);
 			GameEvents.InvokeBlockTemplateFilled(_blockTemplateId);
+		}
+		
+		private void PlaySound(bool isFilled)
+		{
+			_audioSource.clip = isFilled ? _fillSound : _missSound;
+			_audioSource.Play();
 		}
 	}
 }
