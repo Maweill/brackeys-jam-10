@@ -1,18 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MainMenu : MonoBehaviour
 {
 	[SerializeField] private GameObject _newGameButton;
-	[SerializeField] private GameObject _optionsButton;
+	[SerializeField] private GameObject _restartButton;
 	
 	[SerializeField] private SpriteRenderer _lightenBackground;
 	[SerializeField] private SpriteRenderer _darkenBackground;
+	
+	[SerializeField] private GameObject _gameOverText;
+	[SerializeField] private GameObject _youWonText;
+	[SerializeField] private GameObject _thanksForPlayingText;
 
 	public void HideButtons()
 	{
 		_newGameButton.gameObject.SetActive(false);
-		_optionsButton.gameObject.SetActive(false);
+		_restartButton.gameObject.SetActive(false);
 	}
 	
 	public IEnumerator LightenBackground()
@@ -27,6 +32,9 @@ public class MainMenu : MonoBehaviour
 		yield return new WaitForSeconds(0.6f);
 		_lightenBackground.enabled = true;
 		yield return new WaitForSeconds(1f);
+		
+		_youWonText.SetActive(true);
+		_thanksForPlayingText.SetActive(true);
 	}
 	
 	public IEnumerator DarkenBackground(float duration = 1.0f)
@@ -43,5 +51,7 @@ public class MainMenu : MonoBehaviour
 
 		_darkenBackground.color = Color.black;
 		yield return new WaitForSeconds(1f);
+		_restartButton.gameObject.SetActive(true);
+		_gameOverText.SetActive(true);
 	}
 }

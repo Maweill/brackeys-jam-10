@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class OptionsButton: MonoBehaviour
+public class RestartButton: MonoBehaviour
 {
 	private SpriteRenderer _spriteRenderer;
 
@@ -11,7 +12,7 @@ public class OptionsButton: MonoBehaviour
 
 	private void OnMouseUpAsButton()
 	{
-		//TODO show options menu
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	private void OnMouseEnter()

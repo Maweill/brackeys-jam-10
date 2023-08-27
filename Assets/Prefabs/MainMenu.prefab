@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2248071274867922772}
   - component: {fileID: 457481363166852623}
   m_Layer: 5
-  m_Name: OptionsButton
+  m_Name: RestartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -497, y: 180.24}
-  m_SizeDelta: {x: 232.1924, y: 114.4021}
+  m_SizeDelta: {x: 890, y: 181}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5252536432618803220
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e65dfd25d392d23a28b0afa6c6899be4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 241664cfc71fc4057bc49cf0f889798c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -314,4 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 993d9168affeed748b6d35b503ed8795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _newGameButton: {fileID: 463272702310291469}
+  _newGameButton: {fileID: 0}
+  _optionsButton: {fileID: 0}
+  _lightenBackground: {fileID: 0}
+  _darkenBackground: {fileID: 0}

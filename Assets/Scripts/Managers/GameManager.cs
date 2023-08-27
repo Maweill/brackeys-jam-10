@@ -40,7 +40,13 @@ namespace Managers
 			_cameraController = FindObjectOfType<CameraController>();
 			GameEvents.GameStarted += OnGameStarted;
 		}
-	
+
+		private void OnDisable()
+		{
+			GameEvents.LevelCompleted -= OnLevelCompleted;
+			GameEvents.GameStarted -= OnGameStarted;
+		}
+
 		private void OnGameStarted()
 		{
 			StartNextLevel();
