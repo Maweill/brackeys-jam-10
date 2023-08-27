@@ -82,11 +82,13 @@ namespace Managers
 			Debug.Log("GameManager: Количество всех домов: " + housesTotal);
 			Debug.Log("GameManager: Процент заполненных домов: " + houseFillPercentage.ToString("F2") + "%");
 			if ( houseFillPercentage >= GlobalConstants.MIN_FILLED_HOUSES_PERCENTAGE) {
-				//TODO Зажечь свет города
+				yield return StartCoroutine(_mainMenu.LightenBackground());
 				Debug.Log("GameManager: Зажечь свет города");
+				//TODO Показать меню победы
 			} else {
-				//TODO Погрузить город в темноту
+				yield return StartCoroutine(_mainMenu.DarkenBackground());
 				Debug.Log("GameManager: Погрузить город в темноту");
+				//TODO Показать меню проигрыша
 			}
 		}
 	}
