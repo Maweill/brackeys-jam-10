@@ -53,7 +53,9 @@ MonoBehaviour:
   _isLastLevel: 0
   _tubeBottom: {fileID: 0}
   _tubeSide: {fileID: 0}
-  _engineSound: {fileID: 0}
+  _tubePlacementSound: {fileID: 0}
+  _winEngineSound: {fileID: 0}
+  _loseEngineSound: {fileID: 0}
 --- !u!82 &2501625510872507299
 AudioSource:
   m_ObjectHideFlags: 0
@@ -66,7 +68,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
