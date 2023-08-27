@@ -6,6 +6,7 @@ namespace House_Scripts
 	{
 		[SerializeField] private float _maxAngle;
 		[SerializeField] private float _ropeLength;
+		[SerializeField] private float _swingSpeed = 1.0f; // Добавлена новая переменная для регулирования скорости
 
 		private readonly Vector3 _ropeSplitPoint = new(0, 1, 0);
 
@@ -61,7 +62,7 @@ namespace House_Scripts
 
 		private void MoveBlock()
 		{
-			float angle = _maxAngle * Mathf.Sin(Mathf.Sqrt(GlobalConstants.BLOCK_GRAVITY / _ropeLength) * Time.time);
+			float angle = _maxAngle * Mathf.Sin(_swingSpeed * Mathf.Sqrt(GlobalConstants.BLOCK_GRAVITY / _ropeLength) * Time.time); // Модифицировали формулу, добавив _swingSpeed
 			float xMovement = _blockRelativeStartPosition.x + _ropeLength * Mathf.Sin(angle * Mathf.Deg2Rad);
 
 			_blockPosition =
