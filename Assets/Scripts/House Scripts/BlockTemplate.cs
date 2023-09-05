@@ -13,6 +13,7 @@ namespace House_Scripts
 		private Block _block;
 		private SpriteRenderer _spriteRenderer;
 		private AudioSource _audioSource;
+		private Color _initialColor;
 
 		public bool IsFilled { get; private set; }
 		
@@ -20,6 +21,7 @@ namespace House_Scripts
 		{
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_audioSource = GetComponent<AudioSource>();
+			_initialColor = _spriteRenderer.color;
 		}
 
 		private void OnEnable()
@@ -32,6 +34,17 @@ namespace House_Scripts
 		{
 			GameEvents.BlockSpawned -= OnBlockSpawned;
 			GameEvents.BlockPlaced -= OnBlockPlaced;
+		}
+
+		public void Show()
+		{
+			gameObject.SetActive(true);
+			_spriteRenderer.color = _initialColor;
+		}
+		
+		public void Hide()
+		{
+			gameObject.SetActive(false);
 		}
 
 		public void LightenBlock()
@@ -84,7 +97,6 @@ namespace House_Scripts
 			color = isFilled ? Color.green : Color.red;
 			color.a = 0.8f;
 			_spriteRenderer.color = color;
-			//TODO Проиграть звук в зависимости от isFilled
 		
 			yield return new WaitForSeconds(0.5f);
 			

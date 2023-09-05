@@ -24,5 +24,10 @@ namespace House_Scripts
 			GameEvents.InvokeBlockSpawned(block);
 			return block;
 		}
+		
+		public void ResetIndex()
+		{
+			_currentIndex = 0;
+		}
 	}
 }
