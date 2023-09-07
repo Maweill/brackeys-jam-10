@@ -51,6 +51,7 @@ namespace Managers
 			GameEvents.BlockPlaced += OnBlockPlaced;
 			GameEvents.BlocksEnded += OnBlocksEnded;
 			GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
+			GameEvents.InvokeLevelInitialized();
 		}
 
 		public void EndLevel()
