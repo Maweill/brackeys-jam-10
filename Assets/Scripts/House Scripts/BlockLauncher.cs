@@ -96,8 +96,11 @@ namespace House_Scripts
 			_currentBlock = null;
 		}
 
-		private void OnBlockTemplateFilled(int _)
+		private void OnBlockTemplateFilled(int _, bool templateFilled)
 		{
+			if (!templateFilled) {
+				_blockFactory.ResetToPreviousIndex();
+			}
 			_currentBlock = _blockFactory.CreateBlock(_blockPosition);
 		}
 

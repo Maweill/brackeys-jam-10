@@ -41,12 +41,13 @@ namespace Managers
 			GameEvents.LevelCompleted += OnLevelCompleted;
 			_cameraController = FindObjectOfType<CameraController>();
 			GameEvents.GameStarted += OnGameStarted;
+			GameEvents.LevelFailed += OnLevelFailed;
 		}
-
+		
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.R)) {
-				StartCoroutine(RestartLevel());
+				StartCoroutine(RestartCurrentLevel());
 			}
 		}
 
@@ -54,11 +55,17 @@ namespace Managers
 		{
 			GameEvents.LevelCompleted -= OnLevelCompleted;
 			GameEvents.GameStarted -= OnGameStarted;
+			GameEvents.LevelFailed -= OnLevelFailed;
 		}
 
 		private void OnGameStarted()
 		{
 			StartCoroutine(StartGame());
+		}
+		
+		private void OnLevelFailed()
+		{
+			StartCoroutine(RestartCurrentLevel());
 		}
 
 		private void OnLevelCompleted()
@@ -91,7 +98,7 @@ namespace Managers
 			_levels[_currentLevelIndex].StartLevel();
 		}
 
-		private IEnumerator RestartLevel()
+		private IEnumerator RestartCurrentLevel()
 		{
 			_loadingScreen.Show();
 			yield return new WaitForSeconds(2f);

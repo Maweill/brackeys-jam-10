@@ -28,6 +28,7 @@ namespace Managers
 		private AudioSource _audioSource;
 		
 		private List<Block> _placedBlocks;
+		private int _livesCount;
 
 		private void Awake()
 		{
@@ -42,22 +43,36 @@ namespace Managers
 
 		public void StartLevel()
 		{
+			_livesCount = GlobalConstants.LEVEL_LIVES;
 			_placedBlocks = new List<Block>();
 			gameObject.SetActive(true);
 			_houseTemplates.ForEach(houseTemplate => houseTemplate.Show());
 			_blockLauncher.gameObject.SetActive(true);
 			GameEvents.BlockPlaced += OnBlockPlaced;
 			GameEvents.BlocksEnded += OnBlocksEnded;
+			GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
 		}
-	
+
 		public void EndLevel()
 		{
 			GameEvents.BlockPlaced -= OnBlockPlaced;
 			GameEvents.BlocksEnded -= OnBlocksEnded;
+			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
 			_blockLauncher.gameObject.SetActive(false);
 			_houseTemplates.ForEach(houseTemplate => houseTemplate.Hide());
-			foreach (Block placedBlock in _placedBlocks) {
+			foreach (Block placedBlock in _placedBlocks.Where(block => block != null)) {
 				Destroy(placedBlock.gameObject);
+			}
+		}
+		
+		private void OnBlockTemplateFilled(int _, bool templateFilled)
+		{
+			if (!templateFilled) {
+				_livesCount--;
+			}
+			Debug.Log($"Lives left = {_livesCount}");
+			if (_livesCount <= 0) {
+				GameEvents.InvokeLevelFailed();
 			}
 		}
 

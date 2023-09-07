@@ -73,10 +73,7 @@ namespace House_Scripts
 			float distancePercentage = Mathf.Clamp01(1 - distance / maxSize);
 			float percentage = distancePercentage * 100f;
 
-			if (percentage >= GlobalConstants.BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE) {
-				IsFilled = true;
-			}
-
+			IsFilled = percentage >= GlobalConstants.BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE;
 			PlaySound(IsFilled);
 			Debug.Log("BlockTemplate: Расстояние в процентах: " + percentage.ToString("F2") + "%");
 			StartCoroutine(ShowFillResult(IsFilled));
@@ -99,9 +96,15 @@ namespace House_Scripts
 			_spriteRenderer.color = color;
 		
 			yield return new WaitForSeconds(0.5f);
-			
-			gameObject.SetActive(false);
-			GameEvents.InvokeBlockTemplateFilled(_blockTemplateId);
+
+			if (isFilled) {
+				gameObject.SetActive(false);
+			}
+			else {
+				_spriteRenderer.color = _initialColor;
+				SelectAsTarget();
+			}
+			GameEvents.InvokeBlockTemplateFilled(_blockTemplateId, isFilled);
 		}
 		
 		private void PlaySound(bool isFilled)

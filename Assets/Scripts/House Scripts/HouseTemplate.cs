@@ -44,7 +44,7 @@ namespace House_Scripts
             }
         }
         
-        private void OnBlockTemplateFilled(int _)
+        private void OnBlockTemplateFilled(int _, bool b)
         {
             IsHouseFilled = _blockTemplates.All(template => template.IsFilled);
         }
