@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using House_Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -103,6 +104,8 @@ namespace Managers
 		private IEnumerator LightenHouses()
 		{
 			GameManager gameManager = FindObjectOfType<GameManager>();
+			Engine engine = FindObjectOfType<Engine>();
+
 			if (_isLastLevel) {
 				_tubeBottom.gameObject.SetActive(true);
 				_audioSource.clip = _tubePlacementSound;
@@ -113,6 +116,7 @@ namespace Managers
 				yield return new WaitForSeconds(1f);
 				_audioSource.clip =  gameManager.IsWin ? _winEngineSound : _loseEngineSound;
 				_audioSource.Play();
+				engine.PlayEngineWinAnimation();
 				yield break;
 			}
 			foreach (HouseTemplate houseTemplate in _houseTemplates.Where(_houseTemplate => _houseTemplate.IsHouseFilled)) {
