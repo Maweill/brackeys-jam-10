@@ -6,6 +6,7 @@ namespace House_Scripts
 	public class BlockFactory : MonoBehaviour
 	{
 		[SerializeField] private Blocks _blocksData;
+		
 		private int _currentIndex;
 
 		public Block CreateBlock(Vector3 startPosition)
@@ -23,6 +24,16 @@ namespace House_Scripts
 			_currentIndex++;
 			GameEvents.InvokeBlockSpawned(block);
 			return block;
+		}
+		
+		public void ResetIndex()
+		{
+			_currentIndex = 0;
+		}
+
+		public void ResetToPreviousIndex()
+		{
+			_currentIndex--;
 		}
 	}
 }

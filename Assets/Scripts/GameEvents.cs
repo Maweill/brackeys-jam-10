@@ -13,7 +13,7 @@ public static class GameEvents
 	public static event Action<Block> BlockDropped; // блок отпущен
 	public static event Action<Block> BlockPlaced; // блок приземлился
 	public static event Action BlocksEnded; // блоки закончились
-	public static event Action<int> BlockTemplateFilled;
+	public static event Action<int, bool> BlockTemplateFilled;
 	
 	public static event Action CameraMoved;
 	
@@ -62,9 +62,9 @@ public static class GameEvents
 		BlocksEnded?.Invoke();
 	}
 
-	public static void InvokeBlockTemplateFilled(int id)
+	public static void InvokeBlockTemplateFilled(int id, bool filled)
 	{
-		BlockTemplateFilled?.Invoke(id);
+		BlockTemplateFilled?.Invoke(id, filled);
 	}
 	
 	public static void InvokeCameraMoved()

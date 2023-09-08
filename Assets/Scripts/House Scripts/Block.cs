@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace House_Scripts
 {
@@ -27,6 +29,24 @@ namespace House_Scripts
 			Rigidbody = GetComponent<Rigidbody2D>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_audioSource = GetComponent<AudioSource>();
+		}
+
+		private void OnEnable()
+		{
+			GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
+		}
+
+		private void OnDisable()
+		{
+			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
+		}
+
+		private void OnBlockTemplateFilled(int _, bool templateFilled)
+		{
+			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
+			if (!templateFilled) {
+				Destroy(gameObject);
+			}
 		}
 
 		private void Update()

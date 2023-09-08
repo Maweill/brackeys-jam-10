@@ -7,4 +7,5 @@ public class GlobalConstants : MonoBehaviour
     public const float BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE = 50f;
     public const float BLOCK_GRAVITY = 9.81f;
     public const float MIN_FILLED_HOUSES_PERCENTAGE = 50f;
+    public const int LEVEL_LIVES = 3;
 }

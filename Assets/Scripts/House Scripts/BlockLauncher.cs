@@ -32,12 +32,7 @@ namespace House_Scripts
 			_sideRope2 = _lineRenderers[2];
 			_blockRelativeStartPosition = transform.position - new Vector3(0f, _ropeLength, 0f);
 		}
-
-		private void Start()
-		{
-			_currentBlock = _blockFactory.CreateBlock(_blockRelativeStartPosition);
-		}
-
+		
 		private void Update()
 		{
 			MoveBlock();
@@ -52,14 +47,19 @@ namespace House_Scripts
 		{
 			GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
 			GameEvents.CameraMoved += OnCameraMoved;
+			_currentBlock = _blockFactory.CreateBlock(_blockRelativeStartPosition);
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
 			GameEvents.CameraMoved -= OnCameraMoved;
+			_blockFactory.ResetIndex();
+			if (_currentBlock != null) {
+				Destroy(_currentBlock.gameObject);
+			}
 		}
-
+		
 		private void MoveBlock()
 		{
 			float angle = _maxAngle * Mathf.Sin(_swingSpeed * Mathf.Sqrt(GlobalConstants.BLOCK_GRAVITY / _ropeLength) * Time.time); // Модифицировали формулу, добавив _swingSpeed
@@ -96,8 +96,11 @@ namespace House_Scripts
 			_currentBlock = null;
 		}
 
-		private void OnBlockTemplateFilled(int _)
+		private void OnBlockTemplateFilled(int _, bool templateFilled)
 		{
+			if (!templateFilled) {
+				_blockFactory.ResetToPreviousIndex();
+			}
 			_currentBlock = _blockFactory.CreateBlock(_blockPosition);
 		}
 

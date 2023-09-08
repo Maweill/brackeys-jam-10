@@ -25,6 +25,16 @@ namespace House_Scripts
         {
             GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
         }
+
+        public void Show()
+        {
+            _blockTemplates.ForEach(template => template.Show());
+        }
+        
+        public void Hide()
+        {
+            _blockTemplates.ForEach(template => template.Hide());
+        }
     
         public IEnumerator Lighten()
         {
@@ -34,7 +44,7 @@ namespace House_Scripts
             }
         }
         
-        private void OnBlockTemplateFilled(int _)
+        private void OnBlockTemplateFilled(int _, bool b)
         {
             IsHouseFilled = _blockTemplates.All(template => template.IsFilled);
         }

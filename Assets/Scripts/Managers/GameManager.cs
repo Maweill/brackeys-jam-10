@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +19,8 @@ namespace Managers
 		private AudioClip _winSound;
 		[SerializeField]
 		private AudioClip _loseSound;
+		[SerializeField]
+		private LoadingScreen _loadingScreen;
 	
 		private CameraController _cameraController;
 		private AudioSource _audioSource;
@@ -40,17 +41,31 @@ namespace Managers
 			GameEvents.LevelCompleted += OnLevelCompleted;
 			_cameraController = FindObjectOfType<CameraController>();
 			GameEvents.GameStarted += OnGameStarted;
+			GameEvents.LevelFailed += OnLevelFailed;
+		}
+		
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.R)) {
+				StartCoroutine(RestartCurrentLevel());
+			}
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.LevelCompleted -= OnLevelCompleted;
 			GameEvents.GameStarted -= OnGameStarted;
+			GameEvents.LevelFailed -= OnLevelFailed;
 		}
 
 		private void OnGameStarted()
 		{
 			StartCoroutine(StartGame());
+		}
+		
+		private void OnLevelFailed()
+		{
+			StartCoroutine(RestartCurrentLevel());
 		}
 
 		private void OnLevelCompleted()
@@ -64,7 +79,7 @@ namespace Managers
 		private IEnumerator StartGame()
 		{
 			_cameraController.MoveCamera(TUTORIAL_CAMERA_Y);
-			yield return new WaitForSeconds(10f);
+			yield return new WaitForSeconds(3f);
 			StartNextLevel();
 		}
 	
@@ -81,6 +96,15 @@ namespace Managers
 			}
 			_cameraController.MoveCamera(_levels[_currentLevelIndex].transform.position.y - 5f);
 			_levels[_currentLevelIndex].StartLevel();
+		}
+
+		private IEnumerator RestartCurrentLevel()
+		{
+			_loadingScreen.Show();
+			yield return new WaitForSeconds(2f);
+			_levels[_currentLevelIndex].EndLevel();
+			_levels[_currentLevelIndex].StartLevel();
+			_loadingScreen.Hide();
 		}
 
 		private IEnumerator EndGame()

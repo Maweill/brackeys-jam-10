@@ -13,6 +13,7 @@ namespace House_Scripts
 		private Block _block;
 		private SpriteRenderer _spriteRenderer;
 		private AudioSource _audioSource;
+		private Color _initialColor;
 
 		public bool IsFilled { get; private set; }
 		
@@ -20,6 +21,7 @@ namespace House_Scripts
 		{
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_audioSource = GetComponent<AudioSource>();
+			_initialColor = _spriteRenderer.color;
 		}
 
 		private void OnEnable()
@@ -32,6 +34,17 @@ namespace House_Scripts
 		{
 			GameEvents.BlockSpawned -= OnBlockSpawned;
 			GameEvents.BlockPlaced -= OnBlockPlaced;
+		}
+
+		public void Show()
+		{
+			gameObject.SetActive(true);
+			_spriteRenderer.color = _initialColor;
+		}
+		
+		public void Hide()
+		{
+			gameObject.SetActive(false);
 		}
 
 		public void LightenBlock()
@@ -60,10 +73,7 @@ namespace House_Scripts
 			float distancePercentage = Mathf.Clamp01(1 - distance / maxSize);
 			float percentage = distancePercentage * 100f;
 
-			if (percentage >= GlobalConstants.BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE) {
-				IsFilled = true;
-			}
-
+			IsFilled = percentage >= GlobalConstants.BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE;
 			PlaySound(IsFilled);
 			Debug.Log("BlockTemplate: Расстояние в процентах: " + percentage.ToString("F2") + "%");
 			StartCoroutine(ShowFillResult(IsFilled));
@@ -84,12 +94,17 @@ namespace House_Scripts
 			color = isFilled ? Color.green : Color.red;
 			color.a = 0.8f;
 			_spriteRenderer.color = color;
-			//TODO Проиграть звук в зависимости от isFilled
 		
 			yield return new WaitForSeconds(0.5f);
-			
-			gameObject.SetActive(false);
-			GameEvents.InvokeBlockTemplateFilled(_blockTemplateId);
+
+			if (isFilled) {
+				gameObject.SetActive(false);
+			}
+			else {
+				_spriteRenderer.color = _initialColor;
+				SelectAsTarget();
+			}
+			GameEvents.InvokeBlockTemplateFilled(_blockTemplateId, isFilled);
 		}
 		
 		private void PlaySound(bool isFilled)
