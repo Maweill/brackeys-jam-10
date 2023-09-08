@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Engine : MonoBehaviour
 {
+    [SerializeField]
+    Transform _engineSpriteContainer;
+    
     private float _shakeDuration = 4f;
     private float _shakeAmplitude = 0.15f;
 
     public void PlayEngineWinAnimation()
     {
-        transform.DOShakePosition(_shakeDuration, _shakeAmplitude);
+        _engineSpriteContainer.transform.DOShakePosition(_shakeDuration, _shakeAmplitude);
     }
 
 }
