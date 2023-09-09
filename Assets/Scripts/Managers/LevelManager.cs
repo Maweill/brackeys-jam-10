@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using House_Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -40,10 +39,14 @@ namespace Managers
 			gameObject.SetActive(false);
 			_blockLauncher = GetComponentInChildren<BlockLauncher>();
 			_audioSource = GetComponent<AudioSource>();
+			_placedBlocks = new List<Block>();
 		}
 
 		public void StartLevel()
 		{
+			foreach (Block placedBlock in _placedBlocks.Where(block => block != null)) {
+				Destroy(placedBlock.gameObject);
+			}
 			_livesCount = GlobalConstants.LEVEL_LIVES;
 			_placedBlocks = new List<Block>();
 			gameObject.SetActive(true);
@@ -62,9 +65,6 @@ namespace Managers
 			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
 			_blockLauncher.gameObject.SetActive(false);
 			_houseTemplates.ForEach(houseTemplate => houseTemplate.Hide());
-			foreach (Block placedBlock in _placedBlocks.Where(block => block != null)) {
-				Destroy(placedBlock.gameObject);
-			}
 		}
 		
 		private void OnBlockTemplateFilled(int _, bool templateFilled)
