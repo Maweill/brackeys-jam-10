@@ -8,7 +8,7 @@ public static class GameEvents
 	public static event Action LevelCompleted;
 	public static event Action LevelFailed;
 	public static event Action GameCompleted;
-
+	public static event Action TutorialSkipped; 
 	public static event Action<Block> BlockSpawned; // блок появился
 	public static event Action<Block> BlockDropped; // блок отпущен
 	public static event Action<Block> BlockPlaced; // блок приземлился
@@ -40,6 +40,11 @@ public static class GameEvents
 	public static void InvokeLevelFailed()
 	{
 		LevelFailed?.Invoke();
+	}
+
+	public static void InvokeTutorialSkipped()
+	{
+		TutorialSkipped?.Invoke();
 	}
 	
 	public static void InvokeBlockSpawned(Block block)
