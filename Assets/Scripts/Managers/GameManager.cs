@@ -42,6 +42,7 @@ namespace Managers
 			_cameraController = FindObjectOfType<CameraController>();
 			GameEvents.GameStarted += OnGameStarted;
 			GameEvents.LevelFailed += OnLevelFailed;
+			GameEvents.TutorialSkipped += OnTutorialSkipped;
 		}
 		
 		private void Update()
@@ -80,9 +81,13 @@ namespace Managers
 		{
 			_cameraController.MoveCamera(TUTORIAL_CAMERA_Y);
 			yield return new WaitForSeconds(3f);
+		}
+
+		private void OnTutorialSkipped()
+		{
 			StartNextLevel();
 		}
-	
+		
 		private void StartNextLevel()
 		{
 			_currentLevelIndex++;
