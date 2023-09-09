@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using House_Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -24,8 +23,9 @@ namespace Managers
 		private AudioClip _winEngineSound;
 		[SerializeField]
 		private AudioClip _loseEngineSound;
-	
+		[SerializeField]
 		private BlockLauncher _blockLauncher;
+		
 		private AudioSource _audioSource;
 		
 		private List<Block> _placedBlocks;
@@ -38,12 +38,15 @@ namespace Managers
 				_tubeSide.gameObject.SetActive(false);
 			}
 			gameObject.SetActive(false);
-			_blockLauncher = GetComponentInChildren<BlockLauncher>();
 			_audioSource = GetComponent<AudioSource>();
+			_placedBlocks = new List<Block>();
 		}
 
 		public void StartLevel()
 		{
+			foreach (Block placedBlock in _placedBlocks.Where(block => block != null)) {
+				Destroy(placedBlock.gameObject);
+			}
 			_livesCount = GlobalConstants.LEVEL_LIVES;
 			_placedBlocks = new List<Block>();
 			gameObject.SetActive(true);
@@ -62,18 +65,18 @@ namespace Managers
 			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
 			_blockLauncher.gameObject.SetActive(false);
 			_houseTemplates.ForEach(houseTemplate => houseTemplate.Hide());
-			foreach (Block placedBlock in _placedBlocks.Where(block => block != null)) {
-				Destroy(placedBlock.gameObject);
-			}
 		}
 		
 		private void OnBlockTemplateFilled(int _, bool templateFilled)
 		{
+			if (_livesCount < 0) {
+				return;
+			}
 			if (!templateFilled) {
 				_livesCount--;
 			}
 			Debug.Log($"Lives left = {_livesCount}");
-			if (_livesCount <= 0) {
+			if (_livesCount == 0) {
 				GameEvents.InvokeLevelFailed();
 			}
 		}

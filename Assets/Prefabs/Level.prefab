@@ -56,6 +56,7 @@ MonoBehaviour:
   _tubePlacementSound: {fileID: 0}
   _winEngineSound: {fileID: 0}
   _loseEngineSound: {fileID: 0}
+  _blockLauncher: {fileID: 8490519640358146009}
 --- !u!82 &2501625510872507299
 AudioSource:
   m_ObjectHideFlags: 0
@@ -438,3 +439,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6892620619972665511, guid: 1a6a54a4492209a379ee61f6aef7ab21, type: 3}
   m_PrefabInstance: {fileID: 6825352699746130020}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8490519640358146009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3129127349788432317, guid: 1a6a54a4492209a379ee61f6aef7ab21, type: 3}
+  m_PrefabInstance: {fileID: 6825352699746130020}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d835e3f8d1480e4fbf60ac1cb2e814a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
