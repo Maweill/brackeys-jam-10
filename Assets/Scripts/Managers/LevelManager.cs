@@ -23,8 +23,9 @@ namespace Managers
 		private AudioClip _winEngineSound;
 		[SerializeField]
 		private AudioClip _loseEngineSound;
-	
+		[SerializeField]
 		private BlockLauncher _blockLauncher;
+		
 		private AudioSource _audioSource;
 		
 		private List<Block> _placedBlocks;
@@ -37,7 +38,6 @@ namespace Managers
 				_tubeSide.gameObject.SetActive(false);
 			}
 			gameObject.SetActive(false);
-			_blockLauncher = GetComponentInChildren<BlockLauncher>();
 			_audioSource = GetComponent<AudioSource>();
 			_placedBlocks = new List<Block>();
 		}
@@ -69,11 +69,14 @@ namespace Managers
 		
 		private void OnBlockTemplateFilled(int _, bool templateFilled)
 		{
+			if (_livesCount < 0) {
+				return;
+			}
 			if (!templateFilled) {
 				_livesCount--;
 			}
 			Debug.Log($"Lives left = {_livesCount}");
-			if (_livesCount <= 0) {
+			if (_livesCount == 0) {
 				GameEvents.InvokeLevelFailed();
 			}
 		}

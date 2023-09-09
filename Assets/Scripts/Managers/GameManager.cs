@@ -41,7 +41,6 @@ namespace Managers
 			GameEvents.LevelCompleted += OnLevelCompleted;
 			_cameraController = FindObjectOfType<CameraController>();
 			GameEvents.GameStarted += OnGameStarted;
-			GameEvents.LevelFailed += OnLevelFailed;
 			GameEvents.TutorialSkipped += OnTutorialSkipped;
 		}
 		
@@ -56,17 +55,11 @@ namespace Managers
 		{
 			GameEvents.LevelCompleted -= OnLevelCompleted;
 			GameEvents.GameStarted -= OnGameStarted;
-			GameEvents.LevelFailed -= OnLevelFailed;
 		}
 
 		private void OnGameStarted()
 		{
 			StartCoroutine(StartGame());
-		}
-		
-		private void OnLevelFailed()
-		{
-			StartCoroutine(RestartCurrentLevel());
 		}
 
 		private void OnLevelCompleted()

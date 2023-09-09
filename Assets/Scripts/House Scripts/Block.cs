@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,6 +19,7 @@ namespace House_Scripts
 		private bool _isDisconnectedFromRope;
 		private bool _isMassive;
 		private AudioSource _audioSource;
+		public bool LevelFailed { get; set; }
 
 		public int ID { get; set; }
 		public Rigidbody2D Rigidbody { get; private set; }
@@ -44,7 +44,7 @@ namespace House_Scripts
 		private void OnBlockTemplateFilled(int _, bool templateFilled)
 		{
 			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
-			if (!templateFilled) {
+			if (!templateFilled && !LevelFailed) {
 				Destroy(gameObject);
 			}
 		}

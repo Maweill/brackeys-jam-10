@@ -14,6 +14,8 @@ namespace House_Scripts
 		private SpriteRenderer _spriteRenderer;
 		private AudioSource _audioSource;
 		private Color _initialColor;
+		private Sprite _initialSprite;
+		private bool _levelFailed;
 
 		public bool IsFilled { get; private set; }
 		
@@ -22,24 +24,30 @@ namespace House_Scripts
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_audioSource = GetComponent<AudioSource>();
 			_initialColor = _spriteRenderer.color;
+			_initialSprite = _spriteRenderer.sprite;
 		}
 
 		private void OnEnable()
 		{
 			GameEvents.BlockSpawned += OnBlockSpawned;
 			GameEvents.BlockPlaced += OnBlockPlaced;
+			GameEvents.LevelInitialized += OnLevelInitialized;
+			GameEvents.LevelFailed += OnLevelFailed;
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.BlockSpawned -= OnBlockSpawned;
 			GameEvents.BlockPlaced -= OnBlockPlaced;
+			GameEvents.LevelInitialized -= OnLevelInitialized;
+			GameEvents.LevelFailed -= OnLevelFailed;
 		}
 
 		public void Show()
 		{
 			gameObject.SetActive(true);
 			_spriteRenderer.color = _initialColor;
+			_spriteRenderer.sprite = _initialSprite;
 		}
 		
 		public void Hide()
@@ -50,6 +58,16 @@ namespace House_Scripts
 		public void LightenBlock()
 		{
 			_block.Lighten();
+		}
+		
+		private void OnLevelInitialized()
+		{
+			_levelFailed = false;
+		}
+		
+		private void OnLevelFailed()
+		{
+			_levelFailed = true;
 		}
 		
 		private void OnBlockSpawned(Block block)
@@ -97,7 +115,7 @@ namespace House_Scripts
 		
 			yield return new WaitForSeconds(0.5f);
 
-			if (isFilled) {
+			if (isFilled || _levelFailed) {
 				gameObject.SetActive(false);
 			}
 			else {

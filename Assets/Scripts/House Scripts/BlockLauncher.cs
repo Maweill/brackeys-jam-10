@@ -21,6 +21,7 @@ namespace House_Scripts
 		private LineRenderer _sideRope2;
 		
 		private bool _canDropBlocks;
+		private bool _levelFailed;
 
 		private void Awake()
 		{
@@ -31,6 +32,7 @@ namespace House_Scripts
 			_sideRope1 = _lineRenderers[1];
 			_sideRope2 = _lineRenderers[2];
 			_blockRelativeStartPosition = transform.position - new Vector3(0f, _ropeLength, 0f);
+			gameObject.SetActive(false);
 		}
 		
 		private void Update()
@@ -47,17 +49,43 @@ namespace House_Scripts
 		{
 			GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
 			GameEvents.CameraMoved += OnCameraMoved;
+			GameEvents.LevelFailed += OnLevelFailed;
+			GameEvents.LevelInitialized += OnLevelInitialized;
 			_currentBlock = _blockFactory.CreateBlock(_blockRelativeStartPosition);
 		}
-
+		
 		private void OnDisable()
 		{
+			GameEvents.LevelInitialized -= OnLevelInitialized;
 			GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;
 			GameEvents.CameraMoved -= OnCameraMoved;
 			_blockFactory.ResetIndex();
 			if (_currentBlock != null) {
 				Destroy(_currentBlock.gameObject);
 			}
+		}
+		
+		private void OnLevelInitialized()
+		{
+			_levelFailed = false;
+		}
+		
+		private void OnLevelFailed()
+		{
+			_levelFailed = true;
+		}
+		
+		private void OnBlockTemplateFilled(int _, bool templateFilled)
+		{
+			if (!templateFilled && !_levelFailed) {
+				_blockFactory.ResetToPreviousIndex();
+			}
+			_currentBlock = _blockFactory.CreateBlock(_blockPosition);
+		}
+
+		private void OnCameraMoved()
+		{
+			_canDropBlocks = true;
 		}
 		
 		private void MoveBlock()
@@ -93,20 +121,8 @@ namespace House_Scripts
 		private void DropBlock()
 		{
 			_currentBlock.Drop();
+			_currentBlock.LevelFailed = _levelFailed;
 			_currentBlock = null;
-		}
-
-		private void OnBlockTemplateFilled(int _, bool templateFilled)
-		{
-			if (!templateFilled) {
-				_blockFactory.ResetToPreviousIndex();
-			}
-			_currentBlock = _blockFactory.CreateBlock(_blockPosition);
-		}
-
-		private void OnCameraMoved()
-		{
-			_canDropBlocks = true;
 		}
 	}
 }

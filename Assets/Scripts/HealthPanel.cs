@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +7,7 @@ public class HealthPanel : MonoBehaviour
 
 	private Stack<GameObject> _lives = new();
 	private Stack<GameObject> _savedLives = new();
+	private bool _levelFailed;
 
 	private void Awake()
 	{
@@ -23,6 +23,7 @@ public class HealthPanel : MonoBehaviour
 		GameEvents.BlockTemplateFilled += OnBlockTemplateFilled;
 		GameEvents.LevelInitialized += OnLevelInitialized;
 		GameEvents.LevelCompleted += OnLevelCompleted;
+		GameEvents.LevelFailed += OnLevelFailed;
 	}
 	
 	private void OnDisable()
@@ -30,11 +31,13 @@ public class HealthPanel : MonoBehaviour
 		GameEvents.BlockTemplateFilled -= OnBlockTemplateFilled;		
 		GameEvents.LevelInitialized -= OnLevelInitialized;
 		GameEvents.LevelCompleted -= OnLevelCompleted;
+		GameEvents.LevelFailed -= OnLevelFailed;
 	}
 	
 	private void OnLevelInitialized()
 	{
 		ShowAllLives();
+		_levelFailed = false;
 	}
 
 	private void OnLevelCompleted()
@@ -42,9 +45,14 @@ public class HealthPanel : MonoBehaviour
 		HideAllLives();
 	}
 	
+	private void OnLevelFailed()
+	{
+		_levelFailed = true;
+	}
+	
 	private void OnBlockTemplateFilled(int _, bool templateFilled)
 	{
-		if (templateFilled) {
+		if (templateFilled || _levelFailed) {
 			return;
 		}
 		_lives.Pop().SetActive(false);
