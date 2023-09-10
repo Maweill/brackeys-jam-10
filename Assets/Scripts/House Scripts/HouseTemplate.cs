@@ -46,7 +46,8 @@ namespace House_Scripts
         
         private void OnBlockTemplateFilled(int _, bool b)
         {
-            IsHouseFilled = _blockTemplates.All(template => template.IsFilled);
+            float averageFillPercentage = _blockTemplates.Average(template => template.FillPercentage);
+            IsHouseFilled = averageFillPercentage > GlobalConstants.MIN_FILLED_HOUSE_PERCENTAGE;
         }
     }
 }

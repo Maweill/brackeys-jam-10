@@ -79,6 +79,7 @@ namespace Managers
 		private void OnTutorialSkipped()
 		{
 			StartNextLevel();
+			GameEvents.TutorialSkipped -= OnTutorialSkipped;
 		}
 		
 		private void StartNextLevel()

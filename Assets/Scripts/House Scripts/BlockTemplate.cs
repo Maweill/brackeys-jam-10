@@ -17,6 +17,8 @@ namespace House_Scripts
 		private Sprite _initialSprite;
 		private bool _levelFailed;
 
+		public float FillPercentage { get; private set; }
+
 		public bool IsFilled { get; private set; }
 		
 		private void Awake()
@@ -89,11 +91,11 @@ namespace House_Scripts
 			float distance = Vector2.Distance(transform.position, block.transform.position);
 			float maxSize = Mathf.Max(transform.localScale.x, block.transform.localScale.x);
 			float distancePercentage = Mathf.Clamp01(1 - distance / maxSize);
-			float percentage = distancePercentage * 100f;
+			FillPercentage = distancePercentage * 100f;
 
-			IsFilled = percentage >= GlobalConstants.BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE;
+			IsFilled = FillPercentage >= GlobalConstants.BLOCK_TEMPLATE_FILL_MIN_PERCENTAGE;
 			PlaySound(IsFilled);
-			Debug.Log("BlockTemplate: Расстояние в процентах: " + percentage.ToString("F2") + "%");
+			Debug.Log("BlockTemplate: Расстояние в процентах: " + FillPercentage.ToString("F2") + "%");
 			StartCoroutine(ShowFillResult(IsFilled));
 		}
 		
