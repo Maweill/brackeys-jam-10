@@ -78,6 +78,9 @@ namespace Managers
 
 		private void OnTutorialSkipped()
 		{
+			if (_cameraController.IsMoving) {
+				return;
+			}
 			StartNextLevel();
 			GameEvents.TutorialSkipped -= OnTutorialSkipped;
 		}
