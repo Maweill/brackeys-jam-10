@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6819233989897591032}
   - component: {fileID: 3897327389962622159}
   - component: {fileID: 7893384948504381338}
-  - component: {fileID: -8528473117828238354}
+  - component: {fileID: -9079290166823168349}
   m_Layer: 0
-  m_Name: Block 2
+  m_Name: Block 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -175184221
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 74445c8256c411d418e9cec782bda151, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b62efe0299d1a444ebdd32596f821b7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -151,7 +151,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.99583334, y: 0.99916667}
+    oldSize: {x: 0.99820787, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -172,10 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c2aeca70124e358775fd04fc6b91b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lightenSprite: {fileID: 21300000, guid: d7964e51ff3401c4b92f4fa30e0c2516, type: 3}
+  _lightenSprite: {fileID: 21300000, guid: 5788a623dcf6ee2428466c6a6dd75543, type: 3}
   _hitSound: {fileID: 8300000, guid: a7176df47ef698b489b0ed8101070c73, type: 3}
   _lightSwitchSound: {fileID: 8300000, guid: 457c803a2a04d765aa6fbcd42353ff45, type: 3}
---- !u!82 &-8528473117828238354
+--- !u!82 &-9079290166823168349
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
