@@ -62,7 +62,7 @@ namespace House_Scripts
 			_isMassive = true;
 			StartCoroutine(MakeMassive());
 		}
-
+		
 		public void Initialize(int index)
 		{
 			ID = index;
@@ -73,7 +73,12 @@ namespace House_Scripts
 			transform.position = position;
 		}
 
-		public void  Drop()
+		public void SnapToPosition(Vector3 position)
+		{
+			StartCoroutine(SnapToPositionRoutine(position));
+		}
+
+		public void Drop()
 		{
 			Rigidbody.isKinematic = false;
 		
@@ -109,6 +114,19 @@ namespace House_Scripts
 			yield return new WaitForSeconds(0.5f);
 			Rigidbody.mass = 100000f;
 			GameEvents.InvokeBlockPlaced(this);
+		}
+		
+		private IEnumerator SnapToPositionRoutine(Vector3 position)
+		{
+			float snapDuration = 0.2f;
+			float elapsedTime = 0f;
+			Vector3 initialPosition = transform.position;
+			while (elapsedTime < snapDuration) {
+				transform.position = Vector3.Lerp(initialPosition, position, elapsedTime / snapDuration);
+				elapsedTime += Time.deltaTime;
+				yield return null;
+			}
+			transform.position = position;
 		}
 	}
 }

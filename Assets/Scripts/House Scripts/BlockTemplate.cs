@@ -97,6 +97,9 @@ namespace House_Scripts
 			PlaySound(IsFilled);
 			Debug.Log("BlockTemplate: Расстояние в процентах: " + FillPercentage.ToString("F2") + "%");
 			StartCoroutine(ShowFillResult(IsFilled));
+			if (IsFilled) {
+				block.SnapToPosition(transform.position);
+			}
 		}
 		
 		private void SelectAsTarget()
