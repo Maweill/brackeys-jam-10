@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlocksLevel3
   m_EditorClassIdentifier: 
   _blockPrefabs:
-  - {fileID: 968319277320951487, guid: d904438830142274290e3b4fcd787e88, type: 3}
+  - {fileID: 968319277320951487, guid: 2602b76dd3b70cc418124028cd742ca2, type: 3}
   - {fileID: 968319277320951487, guid: e8167d4ed887c134e97a1423aeb91c7c, type: 3}
   - {fileID: 968319277320951487, guid: 68004f656da97d44e9e5b9145a8c6fed, type: 3}
   - {fileID: 968319277320951487, guid: 364f72498e43e3e4cb9db095c6e56ff6, type: 3}
