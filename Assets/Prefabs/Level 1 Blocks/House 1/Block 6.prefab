@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c2aeca70124e358775fd04fc6b91b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lightenSprite: {fileID: 21300000, guid: e357b42fa3260564ba87761a7995fa5e, type: 3}
+  _lightenSprite: {fileID: 21300000, guid: b89889d6ddb685f479dcafb32df3b0f9, type: 3}
   _hitSound: {fileID: 8300000, guid: a7176df47ef698b489b0ed8101070c73, type: 3}
   _lightSwitchSound: {fileID: 8300000, guid: 457c803a2a04d765aa6fbcd42353ff45, type: 3}
 --- !u!82 &-26443928134074084
